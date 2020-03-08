@@ -1,14 +1,15 @@
 from util import (
-  mapl
-  ,get_class_name, check_type, check_not_type, auto_check_type
-  ,show, show_change
-  ,Positional, Actor, Expanse
-  ,Pos, Loc, Player, Ball
+  mapl ,get_class_name
+  , check_type, check_not_type, check_class_type
+  , show, show_class_change
+  , Actor, D2
+  , Pos, Loc, Player, Ball
   )
 
-class Field(Expanse):
-  @show_change()
-  def __init__(self, width, height):
+@show_class_change('__init__','move')
+@check_class_type
+class Field(D2):
+  def __init__(self, width:int, height:int):
     self.width, self.height = width, height
     self._loc_matrix = [[Loc(Pos(x,y))
       for x in range(self.width)]
@@ -22,11 +23,7 @@ class Field(Expanse):
       pos = pos_able
     return self._loc_matrix[pos.y][pos.x]
   # don't allow co-locate same type
-  @show_change(repr)
-  @auto_check_type(Actor, (Positional,Actor))
-  def move(self, source, target): # [Player,Ball] -> [Pos,Player,Ball]
-    # check_type(source, Player,Ball)
-    # check_type(target, Pos,Player,Ball)
+  def move(self, source:Actor, target:(Pos,Actor)):
     check_not_type(self[target].get_obj(), type(source))
     if getattr(source, 'pos') and source.pos:
       obj = self[source].del_obj()

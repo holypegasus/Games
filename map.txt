@@ -1,0 +1,61 @@
+Ideas
+P0&1 Basic Mechanism
+  on Field: Players pass ball to each other
+    Player
+      can move
+      has zone-of-control
+        radius
+          later consider perspective/vision 
+    Ball
+      velo
+        later + decay
+  Opponents attempt to intercept
+    Player
+      zone-of-control also intercepts
+        prob(success) inverse dist(center)
+  Continuous space on Field
+    Players/Ball register target
+    Field calculates event resolution order
+      simulate episodes until next event
+      then recompute/poll target
+P2 Inside Out
+  show control/intercept heat-fans
+  show safe corridors
+
+
+Impl Plan
+P0 World
+  Pos: abstract position
+  Loc: location w/ content
+  Player
+    pos
+    radius
+      zone_of_control
+    dribble
+      velo 1
+    pass
+      velo 1~5
+    catch
+      passive
+  Ball(Player)
+    pos
+    radius
+    velo
+  Field
+    discrete cells
+    dims
+    repr
+P1 Pass
+  Player -Ball> Player|Pos
+  Ball ->
+  Field
+  Turn
+P2 Catch
+  GOAL
+    ball retention vs other team
+P3 Expose
+  Field
+    continuous
+  Lane
+
+
